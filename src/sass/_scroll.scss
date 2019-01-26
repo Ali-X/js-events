@@ -1,0 +1,37 @@
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+.scroll-menu {
+  display: block;
+  width: 100%;
+  text-align: center;
+}
+
+.scroll-link {
+  display: inline-block;
+  margin: 0 2rem;
+  font-size: 18px;
+  color: $charleston-green-color;
+  transition-duration: 0.3s;
+  transition-property: box-shadow, transform;
+
+  &:hover {
+    box-shadow: 0 10px 10px -10px rgba(0, 0, 0, 0.5);
+    transform: scale(1.1);
+  }
+}
+
+.scroll-section {
+  display: block;
+  margin-top: 1rem;
+  padding-top: 20rem;
+  width: 100%;
+  height: 50rem;
+  text-align: center;
+  font-size: 3rem;
+  color: $charleston-green-color;
+  background-color: $ash-gray-color;
+  border-style: outset;
+}
