@@ -24,10 +24,11 @@ gulp.task("sass", function () {
 });
 
 gulp.task('watch', ["sass", "browser"], function () {
-  gulp.watch('app/sass/*.scss', ['sass']);
-  gulp.watch('app/js/*.js', browserSync.reload);
-  gulp.watch("app/html/index.html", browserSync.reload);
-  gulp.watch("app/css/main.css", browserSync.reload);
+  gulp.watch('src/sass/*.scss', ['sass']);
+  gulp.watch('src/*/*.*', ['build']);
+  gulp.watch('src/js/*.js', browserSync.reload);
+  gulp.watch("src/html/*.html", browserSync.reload);
+  gulp.watch("src/css/main.css", browserSync.reload);
 });
 
 gulp.task("browser", function() {

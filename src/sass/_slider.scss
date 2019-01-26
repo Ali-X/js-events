@@ -1,0 +1,38 @@
+.slider {
+  margin: auto;
+  width: 50rem;
+  height: 20rem;
+  text-align: center;
+  background-color: $almond-color;
+}
+
+.slider-switcher {
+  position: relative;
+  display: inline-block;
+  width: 9rem;
+  height: 20rem;
+  cursor: pointer;
+}
+
+.slider-photo {
+  display: inline-block;
+  width: 30rem;
+  height: 20rem;
+  background-size: cover;
+  transition: background-image 0.5s ease-in-out;
+}
+
+.slider-control {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  display: block;
+  width: 50px;
+  height: 50px;
+  transform: translate(-50%, -50%);
+
+  &--left {
+    transform-origin: center;
+    transform: rotate(180deg);
+  }
+}

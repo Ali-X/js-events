@@ -1,30 +1,33 @@
 "use strict";
 
-let imgs = ["slider-photo1.jpg", "slider-photo2.jpg", "slider-photo3.jpg", "slider-photo4.jpg"];
+let imgs = ["slider-photo1-min.jpg", "slider-photo2-min.jpg", "slider-photo3-min.jpg", "slider-photo4-min.jpg"];
 let currPos = 0;
 
-console.log(getSlideInfo());
-getNextSlide();
-console.log(getSlideInfo());
-getPrevSlide();
-console.log(getSlideInfo());
+function showSlide() {
+  let sliderElement = document.getElementsByClassName("slider-photo")[0];
+  sliderElement.style.backgroundImage = "url(\"../img/" + getSlideName() + "\")";
+}
+
+showSlide();
 
 function getNextSlide() {
   if (currPos < imgs.length - 1) {
-    return ++currPos;
-  } else {
-    return currPos;
+    ++currPos;
   }
+
+  showSlide();
 }
 
 function getPrevSlide() {
   if (currPos > 0) {
-    return --currPos;
-  } else {
-    return currPos;
+    --currPos;
   }
+
+  showSlide();
 }
 
-function getSlideInfo() {
+function getSlideName() {
   return imgs[currPos];
 }
+
+
