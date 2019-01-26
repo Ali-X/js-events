@@ -1,1 +1,1 @@
-# [Github page](https://ali-x.github.io/js-events/)
+# [Github page](https://ali-x.github.io/js-events/app)
