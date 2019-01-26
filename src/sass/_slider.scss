@@ -32,7 +32,6 @@
   transform: translate(-50%, -50%);
 
   &--left {
-    transform-origin: center;
-    transform: rotate(180deg);
+    transform: translate(-50%, -50%) scale(-1, 1);
   }
 }
