@@ -3,7 +3,7 @@
   let duration = 600;
   let elemOffset;
 
-  document.body.onclick = function(event) {
+  document.body.addEventListener('click', function(event) {
     event = event || window.event;
     event.preventDefault();
     let target = event.target || event.srcElement;
@@ -16,7 +16,7 @@
 
       target = target.parentNode;
     }
-  };
+  });
 
   function scrollWindow(target) {
     let now = null;
