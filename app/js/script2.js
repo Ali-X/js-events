@@ -5,11 +5,11 @@
 
   document.body.addEventListener('click', function(event) {
     event = event || window.event;
-    event.preventDefault();
     let target = event.target || event.srcElement;
 
     while (target !== document.body) {
       if (target.tagName === 'A') {
+        event.preventDefault();
         scrollWindow(target);
         return;
       }
