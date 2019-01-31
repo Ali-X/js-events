@@ -49,7 +49,7 @@
       }
 
       let progress = timestamp - now;
-      window.scrollTo(0, -elemOffset * (progress / duration));
+      window.scrollTo(0, -elemOffset * (progress / duration) + elemOffset);
 
       if (progress < duration) {
         requestAnimationFrame(stepUp);
