@@ -43,10 +43,6 @@
   transform: translate(-50%, -50%) scale(-1, 1);
 }
 
-html {
-  scroll-behavior: smooth;
-}
-
 a {
   color: inherit;
   text-decoration: inherit;

@@ -1,26 +1,59 @@
-let menuOffsetHeight = document.getElementsByClassName("scroll-menu")[0].offsetHeight;
-let sectionOffsetHeight = document.getElementsByClassName("scroll-section")[0].offsetHeight;
+;(function() {
+  let menuOffsetHeight = document.getElementsByClassName("scroll-menu")[0].offsetHeight;
+  let duration = 600;
+  let elemOffset;
 
-function upTheScreen() {
-  window.scrollTo(0, 0);
-}
+  document.body.onclick = function(event) {
+    event = event || window.event;
+    event.preventDefault();
+    let target = event.target || event.srcElement;
 
-function goToFirstSection() {
-  window.scrollTo(0, menuOffsetHeight);
-}
+    while (target !== document.body) {
+      if (target.tagName === 'A') {
+        scrollWindow(target);
+        return;
+      }
 
-function goToSecondSection() {
-  window.scrollTo(0, menuOffsetHeight + sectionOffsetHeight);
-}
+      target = target.parentNode;
+    }
+  };
 
-function goToThirdSection() {
-  window.scrollTo(0, menuOffsetHeight + 2 * sectionOffsetHeight);
-}
+  function scrollWindow(target) {
+    let now = null;
+    let id = target.getAttribute("href");
 
-function goToFourthSection() {
-  window.scrollTo(0, menuOffsetHeight + 3 * sectionOffsetHeight);
-}
+    if (id === "#") {
+      elemOffset = window.pageYOffset;
+      window.requestAnimationFrame(stepUp);
+    } else {
+      elemOffset = document.querySelector(id).offsetTop;
+      window.requestAnimationFrame(stepDown);
+    }
 
-function goToFifthSection() {
-  window.scrollTo(0, menuOffsetHeight + 4 * sectionOffsetHeight);
-}
+    function stepDown(timestamp) {
+      if (!now) {
+        now = timestamp;
+      }
+
+      let progress = timestamp - now;
+      window.scrollTo(0, elemOffset * (progress / duration) + menuOffsetHeight);
+
+      if (progress < duration) {
+        requestAnimationFrame(stepDown);
+      }
+    }
+
+    function stepUp(timestamp) {
+      if (!now) {
+        now = timestamp;
+      }
+
+      let progress = timestamp - now;
+      window.scrollTo(0, -elemOffset * (progress / duration));
+
+      if (progress < duration) {
+        requestAnimationFrame(stepUp);
+      }
+    }
+  }
+})();

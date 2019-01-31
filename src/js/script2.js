@@ -1,50 +1,59 @@
 ;(function() {
   let menuOffsetHeight = document.getElementsByClassName("scroll-menu")[0].offsetHeight;
-  let links = document.querySelectorAll('a');
   let duration = 600;
   let elemOffset;
 
-  for (let i = 0; i < links.length; i++) {
-    let linkElem = links[i];
-    linkElem.addEventListener('click', function(event) {
-      event.preventDefault();
-      let now = null;
-      let id = event.currentTarget.getAttribute("href");
+  document.body.onclick = function(event) {
+    event = event || window.event;
+    event.preventDefault();
+    let target = event.target || event.srcElement;
 
-      if (id === "#") {
-        elemOffset = window.pageYOffset;
-        window.requestAnimationFrame(stepUp);
-      } else {
-        elemOffset = document.querySelector(id).offsetTop;
-        window.requestAnimationFrame(stepDown);
+    while (target !== document.body) {
+      if (target.tagName === 'A') {
+        scrollWindow(target);
+        return;
       }
 
-      function stepDown(timestamp) {
-        if (!now) {
-          now = timestamp;
-        }
+      target = target.parentNode;
+    }
+  };
 
-        let progress = timestamp - now;
-        window.scrollTo(0, elemOffset * (progress / duration) + menuOffsetHeight);
+  function scrollWindow(target) {
+    let now = null;
+    let id = target.getAttribute("href");
 
-        if (progress < duration) {
-          requestAnimationFrame(stepDown);
-        }
+    if (id === "#") {
+      elemOffset = window.pageYOffset;
+      window.requestAnimationFrame(stepUp);
+    } else {
+      elemOffset = document.querySelector(id).offsetTop;
+      window.requestAnimationFrame(stepDown);
+    }
+
+    function stepDown(timestamp) {
+      if (!now) {
+        now = timestamp;
       }
 
-      function stepUp(timestamp) {
+      let progress = timestamp - now;
+      window.scrollTo(0, elemOffset * (progress / duration) + menuOffsetHeight);
 
-        if (!now) {
-          now = timestamp;
-        }
-
-        let progress = timestamp - now;
-        window.scrollTo(0, -elemOffset * (progress / duration));
-
-        if (progress < duration) {
-          requestAnimationFrame(stepUp);
-        }
+      if (progress < duration) {
+        requestAnimationFrame(stepDown);
       }
-    })
+    }
+
+    function stepUp(timestamp) {
+      if (!now) {
+        now = timestamp;
+      }
+
+      let progress = timestamp - now;
+      window.scrollTo(0, -elemOffset * (progress / duration));
+
+      if (progress < duration) {
+        requestAnimationFrame(stepUp);
+      }
+    }
   }
 })();
