@@ -1,26 +1,50 @@
-let menuOffsetHeight = document.getElementsByClassName("scroll-menu")[0].offsetHeight;
-let sectionOffsetHeight = document.getElementsByClassName("scroll-section")[0].offsetHeight;
+;(function() {
+  let menuOffsetHeight = document.getElementsByClassName("scroll-menu")[0].offsetHeight;
+  let links = document.querySelectorAll('a');
+  let duration = 600;
+  let elemOffset;
 
-function upTheScreen() {
-  window.scrollTo(0, 0);
-}
+  for (let i = 0; i < links.length; i++) {
+    let linkElem = links[i];
+    linkElem.addEventListener('click', function(event) {
+      event.preventDefault();
+      let now = null;
+      let id = event.currentTarget.getAttribute("href");
 
-function goToFirstSection() {
-  window.scrollTo(0, menuOffsetHeight);
-}
+      if (id === "#") {
+        elemOffset = window.pageYOffset;
+        window.requestAnimationFrame(stepUp);
+      } else {
+        elemOffset = document.querySelector(id).offsetTop;
+        window.requestAnimationFrame(stepDown);
+      }
 
-function goToSecondSection() {
-  window.scrollTo(0, menuOffsetHeight + sectionOffsetHeight);
-}
+      function stepDown(timestamp) {
+        if (!now) {
+          now = timestamp;
+        }
 
-function goToThirdSection() {
-  window.scrollTo(0, menuOffsetHeight + 2 * sectionOffsetHeight);
-}
+        let progress = timestamp - now;
+        window.scrollTo(0, elemOffset * (progress / duration) + menuOffsetHeight);
 
-function goToFourthSection() {
-  window.scrollTo(0, menuOffsetHeight + 3 * sectionOffsetHeight);
-}
+        if (progress < duration) {
+          requestAnimationFrame(stepDown);
+        }
+      }
 
-function goToFifthSection() {
-  window.scrollTo(0, menuOffsetHeight + 4 * sectionOffsetHeight);
-}
+      function stepUp(timestamp) {
+
+        if (!now) {
+          now = timestamp;
+        }
+
+        let progress = timestamp - now;
+        window.scrollTo(0, -elemOffset * (progress / duration));
+
+        if (progress < duration) {
+          requestAnimationFrame(stepUp);
+        }
+      }
+    })
+  }
+})();
