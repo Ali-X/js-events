@@ -103,3 +103,95 @@ a {
   -ms-transform: rotate(-90deg);
   transform: rotate(-90deg);
 }
+
+.menu {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  margin: 5rem 25rem 0 0;
+  width: 41.5rem;
+  background-color: white;
+  -webkit-transform: translate(0 0);
+  -ms-transform: translate(0 0);
+  transform: translate(0 0);
+  -webkit-transition: all 3s;
+  -o-transition: all 3s;
+  transition: all 3s;
+}
+
+.menu-element {
+  display: block;
+  margin: 0;
+  padding: 2rem 4rem;
+  color: black;
+  background-color: white;
+  font-size: 2rem;
+  cursor: pointer;
+}
+
+.menu-element:hover {
+  background-color: black;
+  color: white;
+  font-weight: bold;
+}
+
+.menu-element:hover > .menu-link {
+  -webkit-transform: translateX(8px);
+  -ms-transform: translateX(8px);
+  transform: translateX(8px);
+}
+
+.menu-link {
+  display: block;
+  -webkit-transition-duration: 0.3s;
+  -o-transition-duration: 0.3s;
+  transition-duration: 0.3s;
+  -webkit-transition-property: -webkit-transform;
+  transition-property: -webkit-transform;
+  -o-transition-property: transform;
+  transition-property: transform;
+  transition-property: transform, -webkit-transform;
+  -webkit-transition-timing-function: ease-out;
+  -o-transition-timing-function: ease-out;
+  transition-timing-function: ease-out;
+}
+
+.menu-toggle {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  margin: 5rem 20rem 0 0;
+  cursor: pointer;
+}
+
+.menu-toggle-line1, .menu-toggle-line2, .menu-toggle-line3 {
+  width: 35px;
+  height: 5px;
+  background-color: black;
+  margin: 6px 0;
+  -webkit-transition: 0.4s;
+  -o-transition: 0.4s;
+  transition: 0.4s;
+}
+
+.change .menu-toggle-line1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  -ms-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .menu-toggle-line2 {
+  opacity: 0;
+}
+
+.change .menu-toggle-line3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  -ms-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.hidden {
+  right: 100vw;
+}

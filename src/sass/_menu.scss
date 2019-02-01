@@ -1,0 +1,74 @@
+.menu {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  margin: 5rem 25rem 0 0;
+  width: 41.5rem;
+  background-color: white;
+
+  transform: translate(0 0);
+  transition: all 3s;
+}
+
+.menu-element {
+  display: block;
+  margin: 0;
+  padding: 2rem 4rem;
+  color: black;
+  background-color: white;
+  font-size: 2rem;
+  cursor: pointer;
+
+  &:hover {
+    background-color: black;
+    color: white;
+    font-weight: bold;
+
+    & > .menu-link {
+      transform: translateX(8px)
+    }
+  }
+}
+
+.menu-link {
+  display: block;
+  transition-duration: 0.3s;
+  transition-property: transform;
+  transition-timing-function: ease-out;
+}
+
+.menu-toggle {
+  position: absolute;
+  display: block;
+  top: 0;
+  right: 0;
+  margin: 5rem 20rem 0 0;
+  cursor: pointer;
+}
+
+.menu-toggle-line1, .menu-toggle-line2, .menu-toggle-line3 {
+  width: 35px;
+  height: 5px;
+  background-color: black;
+  margin: 6px 0;
+  transition: 0.4s;
+}
+
+.change .menu-toggle-line1 {
+  -webkit-transform: rotate(-45deg) translate(-9px, 6px);
+  transform: rotate(-45deg) translate(-9px, 6px);
+}
+
+.change .menu-toggle-line2 {
+  opacity: 0;
+}
+
+.change .menu-toggle-line3 {
+  -webkit-transform: rotate(45deg) translate(-8px, -8px);
+  transform: rotate(45deg) translate(-8px, -8px);
+}
+
+.hidden {
+  right: 100vw;
+}

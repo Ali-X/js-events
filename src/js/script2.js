@@ -9,7 +9,7 @@
 
     while (target !== document.body) {
       if (target.tagName === 'A') {
-        event.preventDefault ? event.preventDefault() : (event.returnValue=false);
+        event.preventDefault ? event.preventDefault() : (event.returnValue = false);
         scrollWindow(target);
         return;
       }
