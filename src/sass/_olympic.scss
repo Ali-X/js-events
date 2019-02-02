@@ -1,0 +1,5 @@
+#medals-table .position {
+  &::before {
+    content: unset;
+  }
+}

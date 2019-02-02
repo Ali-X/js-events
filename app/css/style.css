@@ -356,3 +356,7 @@ body {
 .hidden {
   visibility: hidden;
 }
+
+#medals-table .position::before {
+  content: unset;
+}
