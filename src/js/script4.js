@@ -1,19 +1,20 @@
 (function() {
-  document.getElementsByClassName("modal-overlay")[0].onclick = function(event) {
+  document.getElementById("modal").addEventListener('click', function(event) {
     let target = event.target;
 
-    while (target.className !== "modal-overlay") {
-      if (target.classList.contains('modal-close')) {
-        // нашли элемент, который нас интересует!
+    while (target.id !== "modal") {
+      if (target.className === "modal-window") {
+        return;
+      } else if (target.classList.contains('modal-close') || target.className === "modal-overlay") {
         openCloseModalWindow();
         return;
       }
       target = target.parentNode;
     }
-  };
+  });
 
   function openCloseModalWindow() {
-    document.getElementById("modal").classList.toggle("modal--hidden");
+    document.getElementById("window").classList.toggle("modal-window--hidden");
     document.getElementById("toggle").classList.toggle("change");
     document.getElementById("overlay").classList.toggle("modal-overlay--hidden");
   }
