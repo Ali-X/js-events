@@ -360,3 +360,7 @@ body {
 #medals-table .position::before {
   content: unset;
 }
+
+.hidden {
+  display: none;
+}
