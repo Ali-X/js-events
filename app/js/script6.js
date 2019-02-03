@@ -4,6 +4,9 @@
   rowsPerPageElement.min = 1;
   rowsPerPageElement.max = document.querySelectorAll('tbody > tr').length;
 
+  let filterCountryElement = document.getElementsByClassName('filter__input')[0];
+  filterCountryElement.oninput = updateTable;
+
 
   function updateTable() {
     let rowElements = document.querySelectorAll('tbody > tr');
