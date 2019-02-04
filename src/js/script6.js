@@ -7,7 +7,7 @@
   rowsPerPageElement.min = 1;
   rowsPerPageElement.max = document.querySelectorAll('tbody > tr').length;
 
-  let filterCountryElement = document.getElementsByClassName('filter__input')[0];
+  let filterCountryElement = document.getElementsByName('countryName')[0];
   filterCountryElement.oninput = updatePage;
 
 
@@ -21,7 +21,7 @@
     paginationList.innerHTML = '';
     document.querySelectorAll('tbody > tr').length;
 
-    let rowElements = document.querySelectorAll('tbody > tr:not(.hidden)');
+    let rowElements = document.querySelectorAll('tbody > tr:not(.js-filter-hidden)');
     let rowsPerPage = parseInt(document.getElementsByName('rowsPerPage')[0].value);
 
     for (let i = 0; i < rowElements.length; i += rowsPerPage) {
@@ -42,24 +42,27 @@
     }
   }
 
-  function updateTable() {
+  function updateFilter() {
     let rowElements = document.querySelectorAll('tbody > tr');
 
-    let rowsPerPage = parseInt(document.getElementsByName('rowsPerPage')[0].value);
     let filterCountry = document.getElementsByClassName('filter__input')[0].value;
-
-    let selectedPage = document.getElementsByClassName('pager__page--current')[0].textContent - 1;
-    let pageInfoElement = document.getElementsByClassName('pager__info')[0];
 
     rowElements.forEach(function(elem, num) {
       if (!(elem.getElementsByClassName('country')[0].textContent.startsWith(filterCountry))) {
-        elem.classList.add('hidden');
+        elem.classList.add('js-filter-hidden');
       } else {
-        elem.classList.remove('hidden');
+        elem.classList.remove('js-filter-hidden');
       }
     });
+  }
 
-    rowElements = document.querySelectorAll('tbody > tr:not(.hidden)');
+  function updateTable() {
+    updateFilter();
+    let rowElements = document.querySelectorAll('tbody > tr:not(.js-filter-hidden)');
+
+    let rowsPerPage = parseInt(document.getElementsByName('rowsPerPage')[0].value);
+    let selectedPage = document.getElementsByClassName('pager__page--current')[0].textContent - 1;
+    let pageInfoElement = document.getElementsByClassName('pager__info')[0];
 
     let resultNum = selectedPage * rowsPerPage + rowsPerPage;
 
@@ -68,9 +71,9 @@
         resultNum = rowElements.length;
       }
       if (!(num >= (selectedPage * rowsPerPage) && num < resultNum)) {
-        elem.classList.add('hidden');
+        elem.classList.add('js-pagination-hidden');
       } else {
-        elem.classList.remove('hidden');
+        elem.classList.remove('js-pagination-hidden');
         elem.getElementsByClassName('position')[0].textContent = (num + 1);
       }
     });

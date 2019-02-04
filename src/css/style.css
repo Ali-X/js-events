@@ -361,6 +361,6 @@ body {
   content: unset;
 }
 
-.hidden {
+.js-filter-hidden, .js-pagination-hidden {
   display: none;
 }
