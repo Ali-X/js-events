@@ -3,6 +3,52 @@
   updateTable();
   setPaginationLinks();
 
+  function setPaginationControls() {
+    let prevPageElem = document.getElementsByClassName('pager__prev')[0];
+    let nextPageElem = document.getElementsByClassName('pager__next')[0];
+
+    prevPageElem.onclick = function() {
+      let selectedPageElem = document.getElementsByClassName('pager__page--current')[0];
+      if (selectedPageElem.innerHTML > 1) {
+        selectedPageElem.classList.remove('pager__page--current');
+        let newSelectedElem = document.getElementsByClassName('pager__page')[parseInt(selectedPageElem.innerHTML - 2)];
+        newSelectedElem.classList.add('pager__page--current');
+
+        if (parseInt(newSelectedElem.innerHTML) !== 1) {
+          prevPageElem.setAttribute('href', '#');
+        } else {
+          prevPageElem.removeAttribute('href');
+        }
+
+        nextPageElem.setAttribute('href', '#');
+      }
+
+      updateNumPerPageFilter();
+    };
+
+    nextPageElem.onclick = function() {
+      let selectedPageElem = document.getElementsByClassName('pager__page--current')[0];
+      let paginationSize = document.getElementsByClassName('pager__page').length;
+      if (selectedPageElem.innerHTML < paginationSize) {
+        selectedPageElem.classList.remove('pager__page--current');
+        let newSelectedElem = document.getElementsByClassName('pager__page')[selectedPageElem.innerHTML];
+        newSelectedElem.classList.add('pager__page--current');
+
+        if (parseInt(newSelectedElem.innerHTML) !== paginationSize) {
+          nextPageElem.setAttribute('href', '#');
+        } else {
+          nextPageElem.removeAttribute('href');
+        }
+
+        prevPageElem.setAttribute('href', '#');
+      }
+
+      updateNumPerPageFilter();
+    };
+  }
+
+  setPaginationControls();
+
   let rowsPerPageElement = document.getElementsByName('rowsPerPage')[0];
   rowsPerPageElement.oninput = updatePagination;
   rowsPerPageElement.min = 1;
