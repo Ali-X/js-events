@@ -1,9 +1,93 @@
 ;(function() {
-  updatePagination();
-  updateTable();
-  setPaginationLinks();
+  executeFilters();
 
-  function setPaginationControls() {
+  let rowsPerPageElement = document.getElementsByName('rowsPerPage')[0];
+  rowsPerPageElement.oninput = updatePagination;
+  rowsPerPageElement.min = 1;
+  rowsPerPageElement.max = document.querySelectorAll('tbody > tr').length;
+
+  let filterCountryElement = document.getElementsByName('countryName')[0];
+  filterCountryElement.oninput = updateCountryFilter;
+
+  function setPaginationLinks() {
+    let pageListElem = document.getElementsByClassName('pager__list')[0];
+
+    pageListElem.onclick = function(event) {
+      let pageElements = document.getElementsByClassName('pager__page');
+      let target = event.target;
+
+      if (!target.classList.contains('pager__page')) {
+        return;
+      } else {
+        for (let i = 0; i < pageElements.length; i++) {
+          if (pageElements[i] === target) {
+            pageElements[i].classList.add("pager__page--current");
+          } else {
+            pageElements[i].classList.remove("pager__page--current");
+          }
+        }
+      }
+      // updateNumPerPageFilter();
+      // groupPaginationLinks();
+    };
+  }
+
+  function groupPaginationLinks() {
+    let pageListElements = document.getElementsByClassName('pager__list-item');
+    let selectedPageElem = document.getElementsByClassName('pager__page--current')[0];
+    let length = pageListElements.length;
+
+    if (length < 4) {
+      return;
+    } else {
+      let nums = [];
+      let currPos = selectedPageElem.innerHTML;
+
+      if (length < 7) {
+        for (let i = 1; i < length - 1; i++) {
+          nums.push(i);
+        }
+      } else {
+        for (let i = 1; i < parseInt(currPos) - 2; i++) {
+          nums.push(i);
+        }
+        for (let i = parseInt(currPos) + 1; i < length - 1; i++) {
+          nums.push(i);
+        }
+      }
+
+      hideLinksByNumbers(nums);
+      setDots(length);
+    }
+
+    function hideLinksByNumbers(...nums) {
+      let elements = document.getElementsByClassName('pager__list-item');
+
+      for (let i = 0; i < elements.length; i++) {
+        elements[i].classList.remove('js-pagination-grouped');
+      }
+
+      nums[0].forEach(function(elem) {
+        document.getElementsByClassName('pager__list-item')[elem].classList.add('js-pagination-grouped');
+      });
+    }
+
+    function setDots(length) {
+      for (let i = 0; i < length; i++) {
+        document.getElementsByClassName('pager__page')[i].classList.remove('js-pagination-dots-before');
+        document.getElementsByClassName('pager__page')[i].classList.remove('js-pagination-dots-after');
+      }
+
+      if (document.getElementsByClassName('pager__list-item')[length - 2].classList.contains('js-pagination-grouped')) {
+        document.getElementsByClassName('pager__page')[length - 1].classList.add('js-pagination-dots-before')
+      }
+      if (document.getElementsByClassName('pager__list-item')[1].classList.contains('js-pagination-grouped')) {
+        document.getElementsByClassName('pager__page')[0].classList.add('js-pagination-dots-after')
+      }
+    }
+  }
+
+  function updatePaginationControls() {
     let prevPageElem = document.getElementsByClassName('pager__prev')[0];
     let nextPageElem = document.getElementsByClassName('pager__next')[0];
 
@@ -23,7 +107,8 @@
         nextPageElem.setAttribute('href', '#');
       }
 
-      updateNumPerPageFilter();
+      // updateNumPerPageFilter();
+      // groupPaginationLinks()
     };
 
     nextPageElem.onclick = function() {
@@ -44,39 +129,7 @@
       }
 
       updateNumPerPageFilter();
-    };
-  }
-
-  setPaginationControls();
-
-  let rowsPerPageElement = document.getElementsByName('rowsPerPage')[0];
-  rowsPerPageElement.oninput = updatePagination;
-  rowsPerPageElement.min = 1;
-  rowsPerPageElement.max = document.querySelectorAll('tbody > tr').length;
-
-  let filterCountryElement = document.getElementsByName('countryName')[0];
-  filterCountryElement.oninput = updateCountryFilter;
-
-  function setPaginationLinks() {
-    let pageListElem = document.getElementsByClassName('pager__list')[0];
-
-    pageListElem.onclick = function(event) {
-      let pageElements = document.getElementsByClassName('pager__page');
-      let target = event.target;
-
-      if (target.className !== 'pager__page') {
-        return;
-      } else {
-        for (let i = 0; i < pageElements.length; i++) {
-          if (pageElements[i] === target) {
-            debugger;
-            pageElements[i].classList.add("pager__page--current");
-          } else {
-            pageElements[i].classList.remove("pager__page--current");
-          }
-        }
-      }
-      updateNumPerPageFilter();
+      groupPaginationLinks()
     };
   }
 
@@ -105,7 +158,8 @@
       paginationList.appendChild(paginationItem);
     }
 
-    updateNumPerPageFilter();
+    // updateNumPerPageFilter();
+    // groupPaginationLinks();
   }
 
   function updateCountryFilter() {
@@ -121,8 +175,8 @@
         elem.classList.remove('js-filter-hidden');
       }
     });
-    updatePagination();
-    updateNumPerPageFilter();
+
+    executePagination();
   }
 
   function updateNumPerPageFilter() {
@@ -153,6 +207,8 @@
     } else {
       pageInfoElement.textContent = 'No results';
     }
+
+    executePagination();
   }
 
   function resetSelectedPagination() {
@@ -168,8 +224,16 @@
 
   }
 
-  function updateTable() {
+  function executeFilters() {
     updateCountryFilter();
     updateNumPerPageFilter();
+  }
+
+  function executePagination() {
+    setPaginationLinks();
+    resetSelectedPagination();
+    updatePagination();
+    updatePaginationControls();
+    groupPaginationLinks();
   }
 })();

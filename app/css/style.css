@@ -361,6 +361,16 @@ body {
   content: unset;
 }
 
-.js-filter-hidden, .js-pagination-hidden {
+.js-filter-hidden, .js-pagination-hidden, .js-pagination-grouped {
   display: none;
+}
+
+.js-pagination-dots-before:before {
+  content: "...";
+  padding-right: 20px;
+}
+
+.js-pagination-dots-after:after {
+  content: "...";
+  padding-left: 20px;
 }
