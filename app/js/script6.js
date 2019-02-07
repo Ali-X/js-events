@@ -30,6 +30,7 @@
       }
 
       updatePaginationControl();
+      groupPaginationLinks();
     };
   }
 
@@ -107,6 +108,9 @@
 
         nextPageElem.setAttribute('href', '#');
       }
+
+      updateNumPerPageFilter();
+      groupPaginationLinks()
     };
 
     nextPageElem.onclick = function() {
