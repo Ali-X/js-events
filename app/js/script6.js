@@ -46,17 +46,11 @@
       let nums = [];
       let currPos = selectedPageElem.innerHTML;
 
-      if (length < 7) {
-        for (let i = 1; i < length - 1; i++) {
-          nums.push(i);
-        }
-      } else {
-        for (let i = 1; i < parseInt(currPos) - 2; i++) {
-          nums.push(i);
-        }
-        for (let i = parseInt(currPos) + 1; i < length - 1; i++) {
-          nums.push(i);
-        }
+      for (let i = 1; i < parseInt(currPos) - 2; i++) {
+        nums.push(i);
+      }
+      for (let i = parseInt(currPos) + 1; i < length - 1; i++) {
+        nums.push(i);
       }
 
       hideLinksByNumbers(nums);
