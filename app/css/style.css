@@ -367,10 +367,8 @@ body {
 
 .js-pagination-dots-before:before {
   content: "...";
-  padding-right: 20px;
 }
 
 .js-pagination-dots-after:after {
   content: "...";
-  padding-left: 20px;
 }

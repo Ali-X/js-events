@@ -76,16 +76,29 @@
     }
 
     function setDots(length) {
+      let spanBefore = document.createElement('span');
+      spanBefore.className = 'js-pagination-dots-before';
+
+      let spanAfter = document.createElement('span');
+      spanAfter.className = 'js-pagination-dots-after';
+
+
       for (let i = 0; i < length; i++) {
-        document.getElementsByClassName('pager__page')[i].classList.remove('js-pagination-dots-before');
-        document.getElementsByClassName('pager__page')[i].classList.remove('js-pagination-dots-after');
+        let elem = document.getElementsByClassName("js-pagination-dots-before")[0];
+
+        if (elem) elem.parentNode.removeChild(elem);
+
+        elem = document.getElementsByClassName("js-pagination-dots-after")[0];
+
+        if (elem) elem.parentNode.removeChild(elem);
       }
 
       if (document.getElementsByClassName('pager__list-item')[length - 2].classList.contains('js-pagination-grouped')) {
-        document.getElementsByClassName('pager__page')[length - 1].classList.add('js-pagination-dots-before')
+        document.getElementsByClassName('pager__list-item')[length - 1].insertAdjacentElement('beforebegin', spanBefore);
       }
+
       if (document.getElementsByClassName('pager__list-item')[1].classList.contains('js-pagination-grouped')) {
-        document.getElementsByClassName('pager__page')[0].classList.add('js-pagination-dots-after')
+        document.getElementsByClassName('pager__list-item')[0].insertAdjacentElement('afterend', spanAfter);
       }
     }
   }
