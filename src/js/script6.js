@@ -1,5 +1,6 @@
 ;(function() {
   executeFilters();
+  executePagination();
 
   let rowsPerPageElement = document.getElementsByName('rowsPerPage')[0];
   rowsPerPageElement.oninput = updatePagination;
@@ -176,7 +177,7 @@
       }
     });
 
-    executePagination();
+    // executePagination();
   }
 
   function updateNumPerPageFilter() {
@@ -208,7 +209,7 @@
       pageInfoElement.textContent = 'No results';
     }
 
-    executePagination();
+    // executePagination();
   }
 
   function resetSelectedPagination() {
