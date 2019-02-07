@@ -3,14 +3,14 @@
   executePagination();
 
   let rowsPerPageElement = document.getElementsByName('rowsPerPage')[0];
-  rowsPerPageElement.oninput = updatePagination;
+  rowsPerPageElement.oninput = createPaginationList;
   rowsPerPageElement.min = 1;
   rowsPerPageElement.max = document.querySelectorAll('tbody > tr').length;
 
   let filterCountryElement = document.getElementsByName('countryName')[0];
   filterCountryElement.oninput = updateCountryFilter;
 
-  function setPaginationLinks() {
+  function addClickEventForEachPaginationLink() {
     let pageListElem = document.getElementsByClassName('pager__list')[0];
 
     pageListElem.onclick = function(event) {
@@ -28,8 +28,8 @@
           }
         }
       }
-      // updateNumPerPageFilter();
-      // groupPaginationLinks();
+
+      updatePaginationControl();
     };
   }
 
@@ -88,7 +88,7 @@
     }
   }
 
-  function updatePaginationControls() {
+  function addClickEventForEachPaginationControl() {
     let prevPageElem = document.getElementsByClassName('pager__prev')[0];
     let nextPageElem = document.getElementsByClassName('pager__next')[0];
 
@@ -107,9 +107,6 @@
 
         nextPageElem.setAttribute('href', '#');
       }
-
-      // updateNumPerPageFilter();
-      // groupPaginationLinks()
     };
 
     nextPageElem.onclick = function() {
@@ -134,7 +131,28 @@
     };
   }
 
-  function updatePagination() {
+  function updatePaginationControl() {
+    let prevPageElem = document.getElementsByClassName('pager__prev')[0];
+    let nextPageElem = document.getElementsByClassName('pager__next')[0];
+
+    let selectedPageElem = document.getElementsByClassName('pager__page--current')[0];
+
+    if (parseInt(selectedPageElem.innerHTML) !== 1) {
+      prevPageElem.setAttribute('href', '#');
+    } else {
+      prevPageElem.removeAttribute('href');
+    }
+
+    let paginationSize = document.getElementsByClassName('pager__page').length;
+
+    if (parseInt(selectedPageElem.innerHTML) !== paginationSize) {
+      nextPageElem.setAttribute('href', '#');
+    } else {
+      nextPageElem.removeAttribute('href');
+    }
+  }
+
+  function createPaginationList() {
     let paginationList = document.getElementsByClassName('pager__list')[0];
     paginationList.innerHTML = '';
     document.querySelectorAll('tbody > tr').length;
@@ -231,10 +249,10 @@
   }
 
   function executePagination() {
-    setPaginationLinks();
+    addClickEventForEachPaginationLink();
+    addClickEventForEachPaginationControl();
     resetSelectedPagination();
-    updatePagination();
-    updatePaginationControls();
+    createPaginationList();
     groupPaginationLinks();
   }
 })();
