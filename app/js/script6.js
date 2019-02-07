@@ -192,7 +192,6 @@
   }
 
   function updateCountryFilter() {
-    resetSelectedPagination();
     let rowElements = document.querySelectorAll('tbody > tr');
 
     let filterCountry = document.getElementsByClassName('filter__input')[0].value;
@@ -205,7 +204,7 @@
       }
     });
 
-    // executePagination();
+    createPaginationList();
   }
 
   function updateNumPerPageFilter() {
@@ -236,22 +235,6 @@
     } else {
       pageInfoElement.textContent = 'No results';
     }
-
-    // updatePaginationControl();
-    // groupPaginationLinks();
-  }
-
-  function resetSelectedPagination() {
-    let pageElements = document.getElementsByClassName('pager__page');
-
-    for (let i = 0; i < pageElements.length; i++) {
-      if (i === 0) {
-        pageElements[i].classList.add('pager__page--current');
-      } else {
-        pageElements[i].classList.remove('pager__page--current');
-      }
-    }
-
   }
 
   function executeFilters() {
@@ -262,7 +245,6 @@
   function executePagination() {
     addClickEventForEachPaginationLink();
     addClickEventForEachPaginationControl();
-    resetSelectedPagination();
     createPaginationList();
     groupPaginationLinks();
   }
