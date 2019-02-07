@@ -29,6 +29,7 @@
         }
       }
 
+      updateNumPerPageFilter();
       updatePaginationControl();
       groupPaginationLinks();
     };
