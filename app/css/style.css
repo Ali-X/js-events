@@ -201,13 +201,10 @@ body {
 }
 
 .modal-window {
-  position: absolute;
   display: block;
-  top: 0;
-  right: 0;
-  margin: 5rem 25rem 0 0;
+  margin: 10% auto;
   padding: 2rem;
-  width: 41.5rem;
+  width: 50%;
   opacity: unset;
   font-size: 1.5rem;
   background-color: white;
@@ -265,7 +262,6 @@ body {
   display: block;
   top: 0;
   right: 0;
-  margin: 5rem 20rem 0 0;
   cursor: pointer;
 }
 
