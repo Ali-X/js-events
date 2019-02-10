@@ -147,23 +147,25 @@
     let prevPageElem = document.getElementsByClassName('pager__prev')[0];
     let nextPageElem = document.getElementsByClassName('pager__next')[0];
 
-    let selectedPageNum = parseInt(document.getElementsByClassName('pager__page--current')[0].innerHTML);
-    let paginationSize = document.getElementsByClassName('pager__page').length;
+    if (document.getElementsByClassName('pager__page--current').length > 0) {
+      let selectedPageNum = parseInt(document.getElementsByClassName('pager__page--current')[0].innerHTML);
+      let paginationSize = document.getElementsByClassName('pager__page').length;
 
-    if (paginationSize === 1) {
-      prevPageElem.removeAttribute('href');
-      nextPageElem.removeAttribute('href');
-    } else {
-      if (selectedPageNum !== 1) {
-        prevPageElem.setAttribute('href', '#');
-      } else {
+      if (paginationSize === 1) {
         prevPageElem.removeAttribute('href');
-      }
-
-      if (selectedPageNum !== paginationSize) {
-        nextPageElem.setAttribute('href', '#');
-      } else {
         nextPageElem.removeAttribute('href');
+      } else {
+        if (selectedPageNum !== 1) {
+          prevPageElem.setAttribute('href', '#');
+        } else {
+          prevPageElem.removeAttribute('href');
+        }
+
+        if (selectedPageNum !== paginationSize) {
+          nextPageElem.setAttribute('href', '#');
+        } else {
+          nextPageElem.removeAttribute('href');
+        }
       }
     }
   }
